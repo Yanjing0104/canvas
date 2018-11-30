@@ -11,10 +11,12 @@
           <router-link to="/login">
             <a class="gv" href="javascript:;" @click="adminLogin()">管理员登录</a>
           </router-link>
+          <router-link to="/message">
+            <div class="gv"  @click="message()">短信</div>
+          </router-link>
         </div>
       </div>
     </transition>
-
     <transition name="fade-in">
       <router-view :customer="customer" :login="login" @back="back" :admin="admin"></router-view>
     </transition>
@@ -91,11 +93,13 @@
       customerLogin() {
         this.login = true
         this.customer = true
-
       },
       adminLogin() {
         this.login = true
         this.admin = true
+      },
+      message(){
+        this.login = true
       },
       back() {
         this.login = false

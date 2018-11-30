@@ -13,27 +13,27 @@ import './static/css/main.css'
 Vue.use(ElementUi)
 Vue.prototype.GLOBAL = global_
 //设置接口
-axios.defaults.baseURL='http://192.168.6.109:18090/nanochap-admin'
+// axios.defaults.baseURL='http://192.168.6.109:18090/nanochap-admin'
 Vue.prototype.axios = axios
 
 Vue.config.productionTip = false
 
 // 验证token
-axios.interceptors.response.use(
-  res=> {
-    return res;
-  },
-  err=>{
-    if (err.response==undefined){
-      ElementUi.Message.error('token失效，请重新登录')
-      localStorage.clear()
-      router.replace({
-        name: 'menu',
-      })
-    }
-    return Promise.reject(err)
-  }
-)
+// axios.interceptors.response.use(
+//   res=> {
+//     return res;
+//   },
+//   err=>{
+//     if (err.response==undefined){
+//       ElementUi.Message.error('token失效，请重新登录')
+//       localStorage.clear()
+//       router.replace({
+//         name: 'menu',
+//       })
+//     }
+//     return Promise.reject(err)
+//   }
+// )
 
 /* eslint-disable no-new */
 new Vue({

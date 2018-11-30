@@ -4,6 +4,7 @@ import global_ from '../static/js/global'
 //登录
 import menu from '../components/login/menu.vue'
 import login from '../components/login/login.vue'
+import message from '../components/message/message.vue'
 //首页
 import home from '../components/home/home.vue'
 Vue.use(Router)
@@ -19,7 +20,12 @@ const router =  new Router({
           path: '/login',
           name: 'login',
           component: login,
-        }
+        },
+        {
+          path: '/message',
+          name: 'message',
+          component: message,
+        },
       ]
     },
     {
@@ -85,7 +91,7 @@ router.beforeEach((to, from, next) => {
     var token=students.aa.token;
     global_.setToken(token)
   }
-  if(to.name!=='menu'&&to.name!=='login'){
+  if(to.name!=='menu'&&to.name!=='login'&&to.name!=='message'){
     if(students==null){
       router.push({ name: 'menu' })
       return
