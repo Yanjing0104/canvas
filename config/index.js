@@ -11,6 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+      '/jiguang': {
+        target: 'https://eca.51fanbei.com',//设置你调用的接口域名和端口号 别忘了加http
+        changeOrigin: true,
+        pathRewrite: {
+          '^/jiguang': ''
+        }
+      },
       '/xiaodaiwang': {
         target: 'https://www.xiaodaiba.cn',//设置你调用的接口域名和端口号 别忘了加http
         changeOrigin: true,
@@ -19,10 +26,31 @@ module.exports = {
         }
       },
       '/bapin': {
-        target: 'http://gg-app.youyoushenghuo.net',//设置你调用的接口域名和端口号 别忘了加http
+        target: 'http://gg-app.youyoushenghuo.net',
         changeOrigin: true,
         pathRewrite: {
           '^/bapin': ''
+        }
+      },
+      '/huosu': {
+        target: 'http://hshh.calibrate.cn',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/huosu': ''
+        }
+      },
+      '/fengtai': {
+        target: 'http://dk.myzcgl.top',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/fengtai': ''
+        }
+      },
+      '/dingguagua': {
+        target: 'http://zyzx.dgg.net',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/dingguagua': ''
         }
       },
     },

